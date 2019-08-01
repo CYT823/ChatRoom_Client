@@ -6,7 +6,7 @@ public class MainFrame extends JFrame {
 	int state;
 
 	MainFrame() {
-		state = 0; // 這邊到時候可以從資料庫取
+		state = 1; // 這邊到時候可以從資料庫取
 		
 		switch (state) {
 		case 0:
