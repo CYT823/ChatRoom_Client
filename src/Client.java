@@ -38,9 +38,10 @@ public class Client {
 //			失敗
 			PrintWriter writer = new PrintWriter(client.getOutputStream());
 //			writer.write("testWriter");
+			writer.println("test1");
 			writer.println("test2");
+			writer.println("test3");
 			writer.flush();
-			
 //			DataOutputStream writer = new DataOutputStream(client.getOutputStream());
 //			writer.writeUTF("testData");
 //			writer.flush();
