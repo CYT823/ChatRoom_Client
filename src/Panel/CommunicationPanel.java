@@ -6,6 +6,9 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class CommunicationPanel extends JPanel{
 	JTextField typingBar ;
 	JButton enterBtn;
@@ -38,12 +41,21 @@ public class CommunicationPanel extends JPanel{
 		add(phoneBtn);
 		
 		textArea = new JTextArea(100,10);
-		JScrollPane scrollBar = new JScrollPane(textArea);
-		scrollBar.setBounds(50,50,300,400);
-		//add(textArea);
-		add(scrollBar);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(50,50,300,400);
+		add(scrollPane);
 		
-		
-		
+		initial();
+	}
+	
+	private void initial() {
+		enterBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textArea.append(typingBar.getText());
+			}
+			
+		});
 	}
 }
