@@ -8,6 +8,10 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 public class CommunicationPanel extends JPanel {
 	JTextField typingBar;
@@ -17,6 +21,10 @@ public class CommunicationPanel extends JPanel {
 	JButton phoneBtn;
 	JTextArea textArea;
 
+	Socket client;
+	PrintWriter writer;
+	CommunicationPanel communicationPanel = this;
+	
 	public CommunicationPanel() {
 		setLayout(null);
 
@@ -49,13 +57,24 @@ public class CommunicationPanel extends JPanel {
 	}
 
 	private void initial() {
+		client = new Socket();
+		try {
+			client.connect(new InetSocketAddress("140.123.224.108", 30000));
+			writer = new PrintWriter(client.getOutputStream());
+			new Receiver(client, communicationPanel).start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		enterBtn.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				textArea.append(typingBar.getText());
+				writer.println(typingBar.getText());
+				writer.flush();
+				
+				//清空輸入
+				typingBar.setText("");
 			}
-
 		});
 	}
 }

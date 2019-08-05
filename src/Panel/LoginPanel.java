@@ -2,6 +2,10 @@ package Panel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.InetSocketAddress;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -16,6 +20,9 @@ public class LoginPanel extends JPanel {
 	JButton loginBtn;
 	JButton forgetPassBtn;
 
+	Socket client;
+	PrintWriter writer;
+	
 	public LoginPanel() {
 		// 取消FlowLayout
 		setLayout(null);
@@ -54,6 +61,14 @@ public class LoginPanel extends JPanel {
 	}
 
 	void initial() {
+		client = new Socket();
+		try {
+			client.connect(new InetSocketAddress("140.123.224.108", 30000));
+			writer = new PrintWriter(client.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		loginBtn.addActionListener(new ActionListener() {
 
 			@Override
