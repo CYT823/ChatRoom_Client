@@ -16,6 +16,7 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class CommunicationPanel extends JPanel {
+	JLabel name;
 	JButton phoneBtn;
 	JTextArea textArea;
 	JTextField typingBar;
@@ -26,27 +27,27 @@ public class CommunicationPanel extends JPanel {
 	Socket client;
 	PrintWriter writer;
 	CommunicationPanel communicationPanel = this;
-	
+
 	public CommunicationPanel() {
 		setLayout(null);
-		
-		JLabel name = new JLabel();
-		name.setBounds(25,25,300,30);
+
+		name = new JLabel("樹懶");
+		name.setBounds(30, 25, 300, 30);
 		add(name);
-		
+
 		phoneBtn = new JButton();
 		phoneBtn.setContentAreaFilled(false);
 		phoneBtn.setBorderPainted(false);
 		ImageIcon phone = new ImageIcon("phone.png");
 		phoneBtn.setIcon(phone);
-		phoneBtn.setBounds(335, 25, 30, 30);
+		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
-		
-		textArea = new JTextArea(100,10);
+
+		textArea = new JTextArea(100, 10);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
 		add(scrollPane);
-		
+
 		typingBar = new JTextField();
 		typingBar.setBounds(25, 475, 340, 25);
 		add(typingBar);
@@ -56,7 +57,7 @@ public class CommunicationPanel extends JPanel {
 		plusBtn.setBorderPainted(false);
 		ImageIcon plus = new ImageIcon("plus.png");
 		plusBtn.setIcon(plus);
-		plusBtn.setBounds(25, 505, 25, 25);
+		plusBtn.setBounds(25, 505, 30, 30);
 		add(plusBtn);
 
 		picBtn = new JButton();
@@ -75,32 +76,35 @@ public class CommunicationPanel extends JPanel {
 		screenshotBtn.setBounds(125, 505, 30, 30);
 		add(screenshotBtn);
 
-		
-
 		initial();
 	}
 
 	private void initial() {
-		client = new Socket();
-/*		try {
-			client.connect(new InetSocketAddress("140.123.224.108", 30000));
-			writer = new PrintWriter(client.getOutputStream());
-			new Receiver(client, communicationPanel).start();
-		} catch (IOException e) {
-			e.printStackTrace(); */
-		}
-		
-/*		enterBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				writer.println(typingBar.getText());
-				writer.flush();
-				
-				//清空輸入
-				typingBar.setText("");
+//		client = new Socket();
+//		try {
+//			client.connect(new InetSocketAddress("140.123.224.108", 30000));
+//			
+//			writer = new PrintWriter(client.getOutputStream());
+//			new Receiver(client, communicationPanel).start();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-				
-			}
-		});
-*/
+//		enterBtn.addActionListener(new ActionListener() {
+//
+//			@Override 
+//			public void actionPerformed(ActionEvent e) {
+//		  
+//				writer.println(typingBar.getText()); 
+//				writer.flush();
+//		 
+//				//清空輸入 
+//				typingBar.setText("");
+//		
+//		
+//			}
+//		});	
+
 	}
+
+}
