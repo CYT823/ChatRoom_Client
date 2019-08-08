@@ -2,6 +2,7 @@ package Panel;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -15,7 +16,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class CommunicationPanel extends JPanel {
-	JTextField name;//暫定預留位置
 	JButton phoneBtn;
 	JTextArea textArea;
 	JTextField typingBar;
@@ -30,7 +30,7 @@ public class CommunicationPanel extends JPanel {
 	public CommunicationPanel() {
 		setLayout(null);
 		
-		name = new JTextField();
+		JLabel name = new JLabel();
 		name.setBounds(25,25,300,30);
 		add(name);
 		
@@ -54,15 +54,15 @@ public class CommunicationPanel extends JPanel {
 		plusBtn = new JButton();
 		plusBtn.setContentAreaFilled(false);
 		plusBtn.setBorderPainted(false);
-		ImageIcon plus = new ImageIcon("plus.jpg");
+		ImageIcon plus = new ImageIcon("plus.png");
 		plusBtn.setIcon(plus);
-		plusBtn.setBounds(25, 505, 30, 30);
+		plusBtn.setBounds(25, 505, 25, 25);
 		add(plusBtn);
 
 		picBtn = new JButton();
 		picBtn.setContentAreaFilled(false);
 		picBtn.setBorderPainted(false);
-		ImageIcon pic = new ImageIcon("picture.jpg");
+		ImageIcon pic = new ImageIcon("picture.png");
 		picBtn.setIcon(pic);
 		picBtn.setBounds(75, 505, 30, 30);
 		add(picBtn);
@@ -70,7 +70,7 @@ public class CommunicationPanel extends JPanel {
 		screenshotBtn = new JButton();
 		screenshotBtn.setContentAreaFilled(false);
 		screenshotBtn.setBorderPainted(false);
-		ImageIcon screenshot = new ImageIcon("screenshot.jpg");
+		ImageIcon screenshot = new ImageIcon("screenshot.png");
 		screenshotBtn.setIcon(screenshot);
 		screenshotBtn.setBounds(125, 505, 30, 30);
 		add(screenshotBtn);
