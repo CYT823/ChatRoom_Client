@@ -10,6 +10,8 @@ import javax.swing.JScrollPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -80,30 +82,29 @@ public class CommunicationPanel extends JPanel {
 	}
 
 	private void initial() {
-//		client = new Socket();
-//		try {
-//			client.connect(new InetSocketAddress("140.123.224.108", 30000));
-//			
-//			writer = new PrintWriter(client.getOutputStream());
-//			new Receiver(client, communicationPanel).start();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
+		client = new Socket();
+		try {
+			client.connect(new InetSocketAddress("140.123.224.108", 30000));
+			
+			writer = new PrintWriter(client.getOutputStream());
+			new Receiver(client, communicationPanel).start();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-//		enterBtn.addActionListener(new ActionListener() {
-//
-//			@Override 
-//			public void actionPerformed(ActionEvent e) {
-//		  
-//				writer.println(typingBar.getText()); 
-//				writer.flush();
-//		 
-//				//清空輸入 
-//				typingBar.setText("");
-//		
-//		
-//			}
-//		});	
+		typingBar.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					writer.println("USER1: " + typingBar.getText()); 
+					writer.flush();
+			 
+					//清空輸入 
+					typingBar.setText("");
+				}
+			}
+
+		});
 
 	}
 
