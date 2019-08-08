@@ -37,7 +37,7 @@ public class CommunicationPanel extends JPanel {
 		phoneBtn = new JButton();
 		phoneBtn.setContentAreaFilled(false);
 		phoneBtn.setBorderPainted(false);
-		ImageIcon phone = new ImageIcon("phone.jpg");
+		ImageIcon phone = new ImageIcon("phone.png");
 		phoneBtn.setIcon(phone);
 		phoneBtn.setBounds(335, 25, 30, 30);
 		add(phoneBtn);
