@@ -1,5 +1,6 @@
 package Panel;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -14,12 +15,13 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 
 public class CommunicationPanel extends JPanel {
-	JTextField typingBar;
-	JButton enterBtn;
-	JButton micBtn;
-	JButton picBtn;
+	JTextField name;//暫定預留位置
 	JButton phoneBtn;
 	JTextArea textArea;
+	JTextField typingBar;
+	JButton plusBtn;
+	JButton picBtn;
+	JButton screenshotBtn;
 
 	Socket client;
 	PrintWriter writer;
@@ -27,46 +29,68 @@ public class CommunicationPanel extends JPanel {
 	
 	public CommunicationPanel() {
 		setLayout(null);
-
+		
+		name = new JTextField();
+		name.setBounds(25,25,300,30);
+		add(name);
+		
+		phoneBtn = new JButton();
+		phoneBtn.setContentAreaFilled(false);
+		phoneBtn.setBorderPainted(false);
+		ImageIcon phone = new ImageIcon("phone.jpg");
+		phoneBtn.setIcon(phone);
+		phoneBtn.setBounds(335, 25, 30, 30);
+		add(phoneBtn);
+		
+		textArea = new JTextArea(100,10);
+		JScrollPane scrollPane = new JScrollPane(textArea);
+		scrollPane.setBounds(25, 70, 340, 400);
+		add(scrollPane);
+		
 		typingBar = new JTextField();
-		typingBar.setBounds(10, 480, 300, 30);
+		typingBar.setBounds(25, 475, 340, 25);
 		add(typingBar);
 
-		enterBtn = new JButton("發送");
-		enterBtn.setBounds(310, 480, 70, 30);
-		add(enterBtn);
+		plusBtn = new JButton();
+		plusBtn.setContentAreaFilled(false);
+		plusBtn.setBorderPainted(false);
+		ImageIcon plus = new ImageIcon("plus.jpg");
+		plusBtn.setIcon(plus);
+		plusBtn.setBounds(25, 505, 30, 30);
+		add(plusBtn);
 
-		micBtn = new JButton("錄音");
-		micBtn.setBounds(10, 520, 70, 30);
-		add(micBtn);
-
-		picBtn = new JButton("照片");
-		picBtn.setBounds(110, 520, 70, 30);
+		picBtn = new JButton();
+		picBtn.setContentAreaFilled(false);
+		picBtn.setBorderPainted(false);
+		ImageIcon pic = new ImageIcon("picture.jpg");
+		picBtn.setIcon(pic);
+		picBtn.setBounds(75, 505, 30, 30);
 		add(picBtn);
 
-		phoneBtn = new JButton("通話");
-		phoneBtn.setBounds(205, 520, 70, 30);
-		add(phoneBtn);
+		screenshotBtn = new JButton();
+		screenshotBtn.setContentAreaFilled(false);
+		screenshotBtn.setBorderPainted(false);
+		ImageIcon screenshot = new ImageIcon("screenshot.jpg");
+		screenshotBtn.setIcon(screenshot);
+		screenshotBtn.setBounds(125, 505, 30, 30);
+		add(screenshotBtn);
 
-		textArea = new JTextArea(100, 10);
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(25, 50, 350, 400);
-		add(scrollPane);
+		
 
 		initial();
 	}
 
 	private void initial() {
 		client = new Socket();
-		try {
+/*		try {
 			client.connect(new InetSocketAddress("140.123.224.108", 30000));
 			writer = new PrintWriter(client.getOutputStream());
 			new Receiver(client, communicationPanel).start();
 		} catch (IOException e) {
-			e.printStackTrace();
+			e.printStackTrace(); */
 		}
 		
-		enterBtn.addActionListener(new ActionListener() {
+/*		enterBtn.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				writer.println(typingBar.getText());
@@ -74,7 +98,9 @@ public class CommunicationPanel extends JPanel {
 				
 				//清空輸入
 				typingBar.setText("");
+
+				
 			}
 		});
+*/
 	}
-}
