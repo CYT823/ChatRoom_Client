@@ -89,7 +89,7 @@ public class CommunicationPanel extends JPanel {
 	private void initial() {
 		client = new Socket();
 		try {
-			client.connect(new InetSocketAddress("140.123.224.108", 30000));
+			client.connect(new InetSocketAddress("140.123.101.67", 30000));
 			
 			writer = new PrintWriter(client.getOutputStream());
 			new Receiver(client, communicationPanel).start();
