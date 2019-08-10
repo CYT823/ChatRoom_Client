@@ -42,7 +42,7 @@ public class CommunicationPanel extends JPanel {
 		phoneBtn = new JButton();
 		phoneBtn.setContentAreaFilled(false);
 		phoneBtn.setBorderPainted(false);
-		ImageIcon phone = new ImageIcon("phone.png");
+		ImageIcon phone = new ImageIcon("src//icon//phone.png");
 		phoneBtn.setIcon(phone);
 		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
@@ -62,7 +62,7 @@ public class CommunicationPanel extends JPanel {
 		plusBtn = new JButton();
 		plusBtn.setContentAreaFilled(false);
 		plusBtn.setBorderPainted(false);
-		ImageIcon plus = new ImageIcon("plus.png");
+		ImageIcon plus = new ImageIcon("src//icon//plus.png");
 		plusBtn.setIcon(plus);
 		plusBtn.setBounds(20, 480, 30, 30);
 		add(plusBtn);
@@ -70,7 +70,7 @@ public class CommunicationPanel extends JPanel {
 		picBtn = new JButton();
 		picBtn.setContentAreaFilled(false);
 		picBtn.setBorderPainted(false);
-		ImageIcon pic = new ImageIcon("picture.png");
+		ImageIcon pic = new ImageIcon("src//icon//picture.png");
 		picBtn.setIcon(pic);
 		picBtn.setBounds(52, 480, 30, 30);
 		add(picBtn);
@@ -78,7 +78,7 @@ public class CommunicationPanel extends JPanel {
 		screenshotBtn = new JButton();
 		screenshotBtn.setContentAreaFilled(false);
 		screenshotBtn.setBorderPainted(false);
-		ImageIcon screenshot = new ImageIcon("screenshot.png");
+		ImageIcon screenshot = new ImageIcon("src//icon//screenshot.png");
 		screenshotBtn.setIcon(screenshot);
 		screenshotBtn.setBounds(84, 480, 30, 30);
 		add(screenshotBtn);
