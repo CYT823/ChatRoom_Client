@@ -9,6 +9,7 @@ import javax.swing.JTextField;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -47,16 +48,16 @@ public class CommunicationPanel extends JPanel {
 		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
 
-		textArea = new JTextArea(100, 10);
+		textArea = new JTextArea();
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
-		textArea.setFont(new java.awt.Font("新細明體",0,15));
+		textArea.setFont(new Font("新細明體",0,15));
 		textArea.setForeground(Color.BLUE);
 		add(scrollPane);
 
 		typingBar = new JTextArea();
 		typingBar.setBounds(120, 485, 240, 25);
-		typingBar.setFont(new java.awt.Font("新細明體",0,15));
+		typingBar.setFont(new Font("新細明體",0,15));
 		add(typingBar);
 
 		plusBtn = new JButton();
