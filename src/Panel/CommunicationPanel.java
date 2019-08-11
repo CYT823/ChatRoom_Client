@@ -37,33 +37,33 @@ public class CommunicationPanel extends JPanel {
 
 		name = new JLabel("樹懶");
 		name.setBounds(30, 25, 300, 30);
-		name.setFont(new java.awt.Font("新細明體",1,18));
+		name.setFont(new java.awt.Font("新細明體", 1, 18));
 		add(name);
 
 		phoneBtn = new JButton();
 		phoneBtn.setContentAreaFilled(false);
 		phoneBtn.setBorderPainted(false);
-		ImageIcon phone = new ImageIcon("src//icon//phone.png");
+		ImageIcon phone = new ImageIcon("icon/phone.png");
 		phoneBtn.setIcon(phone);
 		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
 
 		textArea = new JTextArea();
+		textArea.setFont(new Font("新細明體", 0, 15));
+		textArea.setForeground(Color.BLUE);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
-		textArea.setFont(new Font("新細明體",0,15));
-		textArea.setForeground(Color.BLUE);
 		add(scrollPane);
 
 		typingBar = new JTextArea();
 		typingBar.setBounds(120, 485, 240, 25);
-		typingBar.setFont(new Font("新細明體",0,15));
+		typingBar.setFont(new Font("新細明體", 0, 15));
 		add(typingBar);
 
 		plusBtn = new JButton();
 		plusBtn.setContentAreaFilled(false);
 		plusBtn.setBorderPainted(false);
-		ImageIcon plus = new ImageIcon("src//icon//plus.png");
+		ImageIcon plus = new ImageIcon("icon/plus.png");
 		plusBtn.setIcon(plus);
 		plusBtn.setBounds(20, 480, 30, 30);
 		add(plusBtn);
@@ -71,7 +71,7 @@ public class CommunicationPanel extends JPanel {
 		picBtn = new JButton();
 		picBtn.setContentAreaFilled(false);
 		picBtn.setBorderPainted(false);
-		ImageIcon pic = new ImageIcon("src//icon//picture.png");
+		ImageIcon pic = new ImageIcon("icon/picture.png");
 		picBtn.setIcon(pic);
 		picBtn.setBounds(52, 480, 30, 30);
 		add(picBtn);
@@ -79,7 +79,7 @@ public class CommunicationPanel extends JPanel {
 		screenshotBtn = new JButton();
 		screenshotBtn.setContentAreaFilled(false);
 		screenshotBtn.setBorderPainted(false);
-		ImageIcon screenshot = new ImageIcon("src//icon//screenshot.png");
+		ImageIcon screenshot = new ImageIcon("icon/screenshot.png");
 		screenshotBtn.setIcon(screenshot);
 		screenshotBtn.setBounds(84, 480, 30, 30);
 		add(screenshotBtn);
@@ -91,7 +91,7 @@ public class CommunicationPanel extends JPanel {
 		client = new Socket();
 		try {
 			client.connect(new InetSocketAddress("140.123.101.67", 30000));
-			
+
 			writer = new PrintWriter(client.getOutputStream());
 			new Receiver(client, communicationPanel).start();
 		} catch (IOException e) {
@@ -102,10 +102,10 @@ public class CommunicationPanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					writer.println("USER1: " + typingBar.getText()); 
+					writer.println("USER1: " + typingBar.getText());
 					writer.flush();
-			 
-					//清空輸入 
+
+					// 清空輸入
 					typingBar.setText("");
 				}
 			}
