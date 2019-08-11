@@ -102,7 +102,7 @@ public class CommunicationPanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					writer.println("USER1: " + typingBar.getText());
+					writer.println(typingBar.getText());
 					writer.flush();
 
 					// 清空輸入
