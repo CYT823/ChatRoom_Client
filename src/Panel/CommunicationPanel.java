@@ -4,8 +4,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.text.DefaultCaret;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
@@ -54,10 +56,13 @@ public class CommunicationPanel extends JPanel {
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
 		add(scrollPane);
+		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 
 		typingBar = new JTextArea();
 		typingBar.setBounds(120, 485, 240, 25);
 		typingBar.setFont(new Font("新細明體", 0, 15));
+		typingBar.setLineWrap(true);
 		add(typingBar);
 
 		plusBtn = new JButton();
