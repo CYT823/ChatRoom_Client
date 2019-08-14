@@ -49,7 +49,8 @@ public class CommunicationPanel extends JPanel {
 		textArea = new JTextArea();
 		textArea.setFont(new Font("新細明體", 0, 15));
 		textArea.setForeground(Color.BLUE);
-		
+		textArea.setLineWrap(true);     
+		textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
 		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
