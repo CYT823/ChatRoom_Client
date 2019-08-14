@@ -27,7 +27,12 @@ public class Receiver extends Thread {
 		String message;
 		try {
 			while ((message = reader.readLine()) != null) {
-				communicationPanel.textArea.append(message + "\n");
+				if(communicationPanel.textArea.getText().equals("")) {
+					communicationPanel.textArea.append(message);
+				}else {
+					communicationPanel.textArea.append("\n" + message);
+				}
+				
 			}
 		} catch (SocketException se) {
 			communicationPanel.textArea.append("伺服器已關閉\n");

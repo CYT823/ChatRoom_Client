@@ -4,16 +4,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 import javax.swing.text.DefaultCaret;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -37,7 +33,7 @@ public class CommunicationPanel extends JPanel {
 	public CommunicationPanel() {
 		setLayout(null);
 
-		name = new JLabel("樹懶");
+		name = new JLabel("(名字)");
 		name.setBounds(30, 25, 300, 30);
 		name.setFont(new java.awt.Font("新細明體", 1, 18));
 		add(name);
@@ -53,12 +49,13 @@ public class CommunicationPanel extends JPanel {
 		textArea = new JTextArea();
 		textArea.setFont(new Font("新細明體", 0, 15));
 		textArea.setForeground(Color.BLUE);
+		
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
-		add(scrollPane);
 		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-
+		add(scrollPane);
+		
 		typingBar = new JTextArea();
 		typingBar.setBounds(120, 485, 240, 25);
 		typingBar.setFont(new Font("新細明體", 0, 15));
@@ -114,7 +111,6 @@ public class CommunicationPanel extends JPanel {
 					typingBar.setText("");
 				}
 			}
-
 		});
 
 	}
