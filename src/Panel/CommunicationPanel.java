@@ -49,12 +49,12 @@ public class CommunicationPanel extends JPanel {
 		textArea = new JTextArea();
 		textArea.setFont(new Font("新細明體", 0, 15));
 		textArea.setForeground(Color.BLUE);
+		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		textArea.setLineWrap(true);     
 		textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
-		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		add(scrollPane);
 		
 		typingBar = new JTextArea();
@@ -94,7 +94,6 @@ public class CommunicationPanel extends JPanel {
 		client = new Socket();
 		try {
 			client.connect(new InetSocketAddress("140.123.101.67", 30000));
-
 			writer = new PrintWriter(client.getOutputStream());
 			new Receiver(client, communicationPanel).start();
 		} catch (IOException e) {
