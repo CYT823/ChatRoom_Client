@@ -56,18 +56,20 @@ public class CommunicationPanel extends JPanel {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		JScrollPane scrollPane = new JScrollPane(textArea);
-		scrollPane.setBounds(25, 70, 340, 400);
-		add(scrollPane);
+		JScrollPane scrollPane1 = new JScrollPane(textArea);
+		scrollPane1.setBounds(25, 70, 340, 400);
+		add(scrollPane1);
 
 		typingBar = new JTextArea();
-		typingBar.setBounds(120, 485, 240, 25);
+		//typingBar.setBounds(120, 485, 240, 25);
 		typingBar.setFont(new Font("新細明體", 0, 15));
 		typingBar.setLineWrap(true);
 		InputMap inputMap = typingBar.getInputMap(WHEN_FOCUSED);
 		KeyStroke enterStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
 		inputMap.put(enterStroke, enterStroke.toString());
-		add(typingBar);
+		JScrollPane scrollPane2 = new JScrollPane(typingBar); 
+		scrollPane2.setBounds(120, 485, 240, 25);
+		add(scrollPane2);
 
 		plusBtn = new JButton();
 		plusBtn.setContentAreaFilled(false);
