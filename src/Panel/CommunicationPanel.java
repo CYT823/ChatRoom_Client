@@ -1,10 +1,12 @@
 package Panel;
 
 import javax.swing.ImageIcon;
+import javax.swing.InputMap;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.KeyStroke;
 import javax.swing.text.DefaultCaret;
 import javax.swing.JScrollPane;
 
@@ -29,6 +31,7 @@ public class CommunicationPanel extends JPanel {
 	Socket client;
 	PrintWriter writer;
 	CommunicationPanel communicationPanel = this;
+	boolean isShiftPress = false;
 
 	public CommunicationPanel() {
 		setLayout(null);
@@ -51,16 +54,19 @@ public class CommunicationPanel extends JPanel {
 		textArea.setForeground(Color.BLUE);
 		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		textArea.setLineWrap(true);     
+		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
 		JScrollPane scrollPane = new JScrollPane(textArea);
 		scrollPane.setBounds(25, 70, 340, 400);
 		add(scrollPane);
-		
+
 		typingBar = new JTextArea();
 		typingBar.setBounds(120, 485, 240, 25);
 		typingBar.setFont(new Font("新細明體", 0, 15));
 		typingBar.setLineWrap(true);
+		InputMap inputMap = typingBar.getInputMap(WHEN_FOCUSED);
+		KeyStroke enterStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
+		inputMap.put(enterStroke, enterStroke.toString());
 		add(typingBar);
 
 		plusBtn = new JButton();
@@ -103,12 +109,21 @@ public class CommunicationPanel extends JPanel {
 		typingBar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					writer.println(typingBar.getText());
-					writer.flush();
+				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
+					isShiftPress = true;
+				}
 
-					// 清空輸入
-					typingBar.setText("");
+				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					if (isShiftPress) {
+						typingBar.append("\n");
+						isShiftPress = false;
+					} else {
+						writer.println(typingBar.getText());
+						writer.flush();
+
+						// 清空輸入
+						typingBar.setText("");
+					}
 				}
 			}
 		});
