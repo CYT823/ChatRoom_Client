@@ -27,6 +27,8 @@ public class CommunicationPanel extends JPanel {
 	JButton plusBtn;
 	JButton picBtn;
 	JButton screenshotBtn;
+	JScrollPane scrollPane1;
+	JScrollPane scrollPane2;
 
 	Socket client;
 	PrintWriter writer;
@@ -56,7 +58,7 @@ public class CommunicationPanel extends JPanel {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		JScrollPane scrollPane1 = new JScrollPane(textArea);
+		scrollPane1 = new JScrollPane(textArea);
 		scrollPane1.setBounds(25, 70, 340, 400);
 		add(scrollPane1);
 
@@ -67,7 +69,7 @@ public class CommunicationPanel extends JPanel {
 		InputMap inputMap = typingBar.getInputMap(WHEN_FOCUSED);
 		KeyStroke enterStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
 		inputMap.put(enterStroke, enterStroke.toString());
-		JScrollPane scrollPane2 = new JScrollPane(typingBar); 
+		scrollPane2 = new JScrollPane(typingBar); 
 		scrollPane2.setBounds(120, 485, 240, 25);
 		add(scrollPane2);
 
