@@ -18,6 +18,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CommunicationPanel extends JPanel {
 	JLabel name;
@@ -27,13 +29,10 @@ public class CommunicationPanel extends JPanel {
 	JButton plusBtn;
 	JButton picBtn;
 	JButton screenshotBtn;
-	JScrollPane scrollPane1;
-	JScrollPane scrollPane2;
 
 	Socket client;
 	PrintWriter writer;
 	CommunicationPanel communicationPanel = this;
-	boolean isShiftPress = false;
 
 	public CommunicationPanel() {
 		setLayout(null);
@@ -58,19 +57,18 @@ public class CommunicationPanel extends JPanel {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		textArea.setLineWrap(true);
 		textArea.setWrapStyleWord(true);
-		scrollPane1 = new JScrollPane(textArea);
+		JScrollPane scrollPane1 = new JScrollPane(textArea);
 		scrollPane1.setBounds(25, 70, 340, 400);
 		add(scrollPane1);
 
 		typingBar = new JTextArea();
-		//typingBar.setBounds(120, 485, 240, 25);
 		typingBar.setFont(new Font("新細明體", 0, 15));
 		typingBar.setLineWrap(true);
 		InputMap inputMap = typingBar.getInputMap(WHEN_FOCUSED);
 		KeyStroke enterStroke = KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0);
 		inputMap.put(enterStroke, enterStroke.toString());
-		scrollPane2 = new JScrollPane(typingBar); 
-		scrollPane2.setBounds(120, 485, 240, 25);
+		JScrollPane scrollPane2 = new JScrollPane(typingBar);
+		scrollPane2.setBounds(120, 480, 240, 30);
 		add(scrollPane2);
 
 		plusBtn = new JButton();
@@ -110,25 +108,33 @@ public class CommunicationPanel extends JPanel {
 			e.printStackTrace();
 		}
 
+		final Set<Integer> pressed = new HashSet<Integer>();
 		typingBar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				if (e.getKeyCode() == KeyEvent.VK_SHIFT) {
-					isShiftPress = true;
-				}
+				pressed.add(e.getKeyCode());
 
-				if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					if (isShiftPress) {
-						typingBar.append("\n");
-						isShiftPress = false;
-					} else {
-						writer.println(typingBar.getText());
-						writer.flush();
-
-						// 清空輸入
-						typingBar.setText("");
+				if (pressed.size() == 2 && pressed.contains(KeyEvent.VK_ENTER) && pressed.contains(KeyEvent.VK_SHIFT)) {
+					typingBar.append("\n");
+				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+					// if there is message on "textArea", give it a new line 
+					if (textArea.getText().length() > 0) {
+						textArea.append("\n");
 					}
+					textArea.append(typingBar.getText());
+					
+					// send by socket
+					writer.println(typingBar.getText());
+					writer.flush();
+
+					// clear the typing area
+					typingBar.setText("");
 				}
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e) {
+				pressed.remove(e.getKeyCode());
 			}
 		});
 
