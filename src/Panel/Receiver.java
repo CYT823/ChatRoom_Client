@@ -32,7 +32,7 @@ public class Receiver extends Thread {
 				}else {
 					communicationPanel.textArea.append("\n" + message);
 				}
-				
+			
 			}
 		} catch (SocketException se) {
 			communicationPanel.textArea.append("伺服器已關閉\n");

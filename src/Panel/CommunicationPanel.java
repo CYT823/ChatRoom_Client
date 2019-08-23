@@ -11,6 +11,7 @@ import javax.swing.text.DefaultCaret;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
+import java.awt.ComponentOrientation;
 import java.awt.Font;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -57,6 +58,7 @@ public class CommunicationPanel extends JPanel {
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); //scrollpane自動到最下
 		textArea.setLineWrap(true); //斷行不斷字
 		textArea.setWrapStyleWord(true); //自動換行
+		textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);//從右邊開始
 		JScrollPane txtAreaScroll = new JScrollPane(textArea);
 		txtAreaScroll.setBounds(25, 70, 340, 400);
 		add(txtAreaScroll);
