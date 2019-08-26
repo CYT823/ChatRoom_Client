@@ -6,6 +6,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
 import javax.swing.text.DefaultCaret;
 import javax.swing.JScrollPane;
@@ -25,7 +26,7 @@ import java.util.Set;
 public class CommunicationPanel extends JPanel {
 	JLabel name;
 	JButton phoneBtn;
-	JTextArea textArea;
+	JTextPane textPane;
 	JTextArea typingBar;
 	JButton plusBtn;
 	JButton picBtn;
@@ -50,18 +51,21 @@ public class CommunicationPanel extends JPanel {
 		phoneBtn.setIcon(phone);
 		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
-
-		textArea = new JTextArea();
-		textArea.setFont(new Font("新細明體", 0, 15));
-		textArea.setForeground(Color.BLUE);
-		DefaultCaret caret = (DefaultCaret) textArea.getCaret();
-		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE); //scrollpane自動到最下
-		textArea.setLineWrap(true); //斷行不斷字
-		textArea.setWrapStyleWord(true); //自動換行
-		textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);//從右邊開始
-		JScrollPane txtAreaScroll = new JScrollPane(textArea);
-		txtAreaScroll.setBounds(25, 70, 340, 400);
-		add(txtAreaScroll);
+		/*
+		 * textArea = new JTextArea(); textArea.setFont(new Font("新細明體", 0, 15));
+		 * textArea.setForeground(Color.BLUE); DefaultCaret caret = (DefaultCaret)
+		 * textArea.getCaret(); caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		 * //scrollpane自動到最下 textArea.setLineWrap(true); //斷行不斷字
+		 * textArea.setWrapStyleWord(true); //自動換行
+		 * textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);//從右邊開始
+		 * JScrollPane txtAreaScroll = new JScrollPane(textArea);
+		 * txtAreaScroll.setBounds(25, 70, 340, 400); add(txtAreaScroll);
+		 */
+		textPane = new JTextPane();
+		textPane.setFont(new Font("新細明體", 0, 15));
+		JScrollPane txtPaneScroll = new JScrollPane(textPane);
+		txtPaneScroll.setBounds(25, 70, 340, 400);
+		add(txtPaneScroll);
 
 		typingBar = new JTextArea();
 		typingBar.setFont(new Font("新細明體", 0, 15));
@@ -119,12 +123,12 @@ public class CommunicationPanel extends JPanel {
 				if (pressed.size() == 2 && pressed.contains(KeyEvent.VK_ENTER) && pressed.contains(KeyEvent.VK_SHIFT)) {
 					typingBar.append("\n");
 				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					// if there is message on "textArea", give it a new line 
-					if (textArea.getText().length() > 0) {
-						textArea.append("\n");
+					// if there is message on "textArea", give it a new line
+					if (textPane.getText().length() > 0) {
+						textPane.append("\n");
 					}
-					textArea.append(typingBar.getText());
-					
+					textPane.append(typingBar.getText());
+
 					// send by socket
 					writer.println(typingBar.getText());
 					writer.flush();

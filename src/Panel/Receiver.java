@@ -21,7 +21,7 @@ public class Receiver extends Thread {
 			e.printStackTrace();
 		}
 	}
-
+/*
 	@Override
 	public void run() {
 		String message;
@@ -39,5 +39,5 @@ public class Receiver extends Thread {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
+	}*/
 }
