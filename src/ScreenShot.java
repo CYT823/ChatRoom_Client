@@ -42,10 +42,10 @@ public class ScreenShot extends JFrame {
 		setLayout(null);
 		this.setVisible(true);
 
-//		okBtn = new JButton(new ImageIcon("icon/checkMark.png"));
-//		cancelBtn = new JButton(new ImageIcon("icon/crossMark.png"));
-		okBtn = new JButton("V");
-		cancelBtn = new JButton("X");
+		okBtn = new JButton(new ImageIcon("icon/checkMark.png"));
+		cancelBtn = new JButton(new ImageIcon("icon/crossMark.png"));
+//		okBtn = new JButton("V");
+//		cancelBtn = new JButton("X");
 		captureArea = new JPanel();
 		captureArea.setBackground(new Color(0.0f, 0.5f, 1.0f, 0.05f));
 		captureArea.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -66,8 +66,11 @@ public class ScreenShot extends JFrame {
 				width = Math.abs(e.getX() - startX);
 				height = Math.abs(e.getY() - startY);
 				
-				if (startX == e.getX() || startY == e.getY())
+				if (startX == e.getX() || startY == e.getY()) {
+					screenShot.getContentPane().removeAll();
+					screenShot.repaint();
 					return;
+				}
 				
 				// 判斷左上角位置
 				if (startX > e.getX())
@@ -92,7 +95,8 @@ public class ScreenShot extends JFrame {
 		addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
-				screenShot.dispose();
+				if(e.getKeyCode() == KeyEvent.VK_ESCAPE)
+					screenShot.dispose();
 			}
 		});
 		
