@@ -8,7 +8,13 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextPane;
 import javax.swing.KeyStroke;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
 import javax.swing.JScrollPane;
 
 import java.awt.Color;
@@ -51,18 +57,11 @@ public class CommunicationPanel extends JPanel {
 		phoneBtn.setIcon(phone);
 		phoneBtn.setBounds(330, 25, 30, 30);
 		add(phoneBtn);
-		/*
-		 * textArea = new JTextArea(); textArea.setFont(new Font("新細明體", 0, 15));
-		 * textArea.setForeground(Color.BLUE); DefaultCaret caret = (DefaultCaret)
-		 * textArea.getCaret(); caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		 * //scrollpane自動到最下 textArea.setLineWrap(true); //斷行不斷字
-		 * textArea.setWrapStyleWord(true); //自動換行
-		 * textArea.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);//從右邊開始
-		 * JScrollPane txtAreaScroll = new JScrollPane(textArea);
-		 * txtAreaScroll.setBounds(25, 70, 340, 400); add(txtAreaScroll);
-		 */
+
 		textPane = new JTextPane();
-		textPane.setFont(new Font("新細明體", 0, 15));
+		textPane.setSize(340, 400);
+		DefaultCaret caret = (DefaultCaret) textPane.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		JScrollPane txtPaneScroll = new JScrollPane(textPane);
 		txtPaneScroll.setBounds(25, 70, 340, 400);
 		add(txtPaneScroll);
@@ -114,22 +113,33 @@ public class CommunicationPanel extends JPanel {
 			e.printStackTrace();
 		}
 
+		SimpleAttributeSet attr = new SimpleAttributeSet();
+		StyleConstants.setForeground(attr, Color.BLACK);
+		StyleConstants.setAlignment(attr, StyleConstants.ALIGN_RIGHT);
+		StyleConstants.setFontFamily(attr, "新細明體");
+		StyleConstants.setFontSize(attr, 15);
+
 		final Set<Integer> pressed = new HashSet<Integer>();
 		typingBar.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				pressed.add(e.getKeyCode());
 
-				if (pressed.size() == 2 && pressed.contains(KeyEvent.VK_ENTER) && pressed.contains(KeyEvent.VK_SHIFT)) {
+				if (pressed.contains(KeyEvent.VK_ENTER) && pressed.contains(KeyEvent.VK_SHIFT)) {
 					typingBar.append("\n");
 				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					// if there is message on "textArea", give it a new line
-					if (textPane.getText().length() > 0) {
-						textPane.append("\n");
-					}
-					textPane.append(typingBar.getText());
+					String msg = "";
+					StyledDocument doc = textPane.getStyledDocument();
 
-					// send by socket
+					try {
+						msg += typingBar.getText() + "\n";
+						textPane.setParagraphAttributes(attr, true);
+						doc.insertString(doc.getLength(), msg, attr);
+					} catch (BadLocationException e1) {
+						e1.printStackTrace();
+					}
+
+					// send through socket
 					writer.println(typingBar.getText());
 					writer.flush();
 
