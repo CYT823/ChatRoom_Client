@@ -1,3 +1,4 @@
+package Panel;
 import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Cursor;
@@ -37,15 +38,13 @@ public class ScreenShot extends JFrame {
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		setBackground(new Color(0.5f, 0.5f, 0.5f, 0.01f));
+		setBackground(new Color(0.5f, 0.5f, 0.5f, 0.1f));
 		setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
 		setLayout(null);
 		this.setVisible(true);
 
 		okBtn = new JButton(new ImageIcon("icon/checkMark.png"));
 		cancelBtn = new JButton(new ImageIcon("icon/crossMark.png"));
-//		okBtn = new JButton("V");
-//		cancelBtn = new JButton("X");
 		captureArea = new JPanel();
 		captureArea.setBackground(new Color(0.0f, 0.5f, 1.0f, 0.05f));
 		captureArea.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -131,10 +130,10 @@ public class ScreenShot extends JFrame {
 		try {
 			Rectangle capture = new Rectangle(startX, startY, width, height);
 			Robot r = new Robot();
-			String path = "D://Shot.jpg";
+			String path = "D://Shot.png";
 			BufferedImage Image = r.createScreenCapture(capture);
 			// 以後這邊透過FTP傳送至SERVER
-			ImageIO.write(Image, "jpg", new File(path));
+			ImageIO.write(Image, "png", new File(path));
 			System.out.println("Screenshot saved");
 		} catch (AWTException | IOException ex) {
 			ex.printStackTrace();

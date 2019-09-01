@@ -20,6 +20,8 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 import java.awt.ComponentOrientation;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -59,6 +61,7 @@ public class CommunicationPanel extends JPanel {
 		add(phoneBtn);
 
 		textPane = new JTextPane();
+		textPane.setEditable(false);
 		textPane.setSize(340, 400);
 		DefaultCaret caret = (DefaultCaret) textPane.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
@@ -128,19 +131,25 @@ public class CommunicationPanel extends JPanel {
 				if (pressed.contains(KeyEvent.VK_ENTER) && pressed.contains(KeyEvent.VK_SHIFT)) {
 					typingBar.append("\n");
 				} else if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-					String msg = "";
 					StyledDocument doc = textPane.getStyledDocument();
-
+					String msg = typingBar.getText().trim();
+					
+					// if there isn't any message, it doesn't need to be sent
+					if(msg.equals("")) {
+						typingBar.setText("");
+						return;
+					}
+					
+					// set on textPane
 					try {
-						msg += typingBar.getText() + "\n";
 						textPane.setParagraphAttributes(attr, true);
-						doc.insertString(doc.getLength(), msg, attr);
+						doc.insertString(doc.getLength(), msg + "\n", attr);
 					} catch (BadLocationException e1) {
 						e1.printStackTrace();
 					}
 
 					// send through socket
-					writer.println(typingBar.getText());
+					writer.println(msg);
 					writer.flush();
 
 					// clear the typing area
@@ -154,6 +163,13 @@ public class CommunicationPanel extends JPanel {
 			}
 		});
 
+		
+		screenshotBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new ScreenShot();
+			}
+		});
 	}
 
 }
